@@ -29,8 +29,12 @@
             switch ($column) {
                 case 'movie_name':
                     // echo get_post_meta($post_id,'_movie_name',true);
-                    $movie_id = get_post_meta($post_id, 'movie_id');
-                    echo get_post($movie_id)->post_title;
+                    // $movie_id = get_post_meta($post_id, 'movie_id');
+                    // echo get_post($movie_id)->post_title;
+                    // echo json_encode(get_post_meta($post_id,"_movie_id"));
+                    $movie_id = get_post_meta($post_id,'_movie_id',true);
+                    $movie_name = get_post($movie_id)->post_title;
+                    echo $movie_name;
                     break;
                 
                 case 'date_show':
@@ -122,7 +126,7 @@
                 'show_ui' => true,
                 'show_in_menu' => true,
                 'query_var' => true,
-                'rewrite' => array('slug' => 'service'),
+                'rewrite' => array('slug' => 'showtimes'),
                 'capability_type' => 'post',
                 'has_archive' => true,
                 'hierarchical' => false,

@@ -1,22 +1,27 @@
 <?php 
-    $quantity_chair_normal = get_post_meta($post->ID, '_quantity_chari_normal',true);
+    $quantity_chair_normal = get_post_meta($post->ID, '_quantity_chair_normal',true);
     $quantity_chair_vip = get_post_meta($post->ID,'_quantity_chair_vip',true);
+
+    $status_edit = false;
+    if($_GET['action'] == 'edit'){
+        $status_edit = true;
+    }
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="container">
     <div class="row">
         <label>Số lượng ghế thường</label>
-        <input id="quantity_chair_normal" name="quantity_chair_normal" type="text" class="form-control">
+        <input id="quantity_chair_normal" name="quantity_chair_normal" type="text" class="form-control" value="<?php echo ($status_edit)?$quantity_chair_normal:""; ?>" >
         <span id="quantity_chair_normal_error" class="text-danger"></span>
     </div>
     <div class="row mt-3">
         <label>Số lượng ghế vip</label>
-        <input id="quantity_chair_vip" name="quantity_chair_vip" type="text" class="form-control">
+        <input id="quantity_chair_vip" name="quantity_chair_vip" type="text" class="form-control" value="<?php echo ($status_edit)?$quantity_chair_vip:""; ?>">
         <span id="quantity_chair_vip_error" class="text-danger"></span>
     </div>
 
-    <span class="btn btn-primary mt-5" id="clickme">Click me<span>
+    <!-- <span class="btn btn-primary mt-5" id="clickme">Click me<span> -->
 </div>
 
 <script>

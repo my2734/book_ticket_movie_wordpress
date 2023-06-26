@@ -4,6 +4,7 @@
     $time = get_post_meta($post->ID, '_time', true);
     $description = get_post_meta($post->ID, '_description', true);
     $genre = get_post_meta($post->ID, '_genre', true);
+    
 
     $taxonomies = get_taxonomies(['object_type' => ['movie']]);
     $taxonomyTerms = [];
@@ -65,15 +66,24 @@
             ?>
             </select>
         </div>
-    <div class="col">
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-6">
+        <label>Đạo diễn</label>
+        <input type="text" class="form-control" name="director">
+    </div>
+    <div class="col-sm-6">
+        <label>Link youtube</label>
+        <input type="text" class="form-control" name="link_ytb">
+    </div>
+    <div class="col-sm-12 mt-2">
+        <label>Diễn viên</label>
+        <input type="text" class="form-control" name="actors">           
+    </div>
+    <div class="col-12 mt-2">
         <label>Mô tả</label>
         <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"><?php echo $status_edit?$description_edit:""; ?></textarea>
     </div>
-
-    <!-- <button class="btn btn-primary" id="demo_test">Click me</button> -->
-   
-    
-   
   </div>
 
   <script>

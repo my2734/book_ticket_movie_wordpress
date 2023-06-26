@@ -8,7 +8,7 @@ class CreateMovie {
         add_filter( 'manage_movie_posts_columns',  [$this, 'custom_movie_column_filter']);
         add_action( 'manage_movie_posts_custom_column' , [$this, 'custom_movie_column_add'],10,2);
         add_action('admin_menu', [$this, 'add_manager_menu']);
-        // add_action('admin_menu', [$this,'add_submenu_options']);
+        add_action('admin_menu', [$this,'add_submenu_options']);
         add_filter('enter_title_here', [$this, 'custom_title_placeholder'], 10, 2);
       
         //AJAX
@@ -17,8 +17,18 @@ class CreateMovie {
 
         add_filter( 'block_categories_all' ,  [$this, 'func_block_categories_all']);
 
+
+        //register shortcode
+        // add_shortcode('subscribe', 'subscribe_link_shortcode');
+
         require_once(PROJECT_MANAGEMENT_PATH . 'movie/features_movie/class-movie-metabox.php');
+
+       
     }
+
+    // function subscribe_link_shortcode() {
+    //     return "<h1>Hello ca nha yeu</h1>";
+    // }
 
     function func_block_categories_all( $categories ) {
         $categories[] = array(
@@ -53,7 +63,9 @@ class CreateMovie {
                 echo get_post_meta($post_id,'_genre',true);
                 break;
             case 'description':
-                echo get_post_meta($post_id,'_description',true);
+                
+                // echo get_post_meta($post_id,'_description',true);
+                echo get_the_excerpt();
                 break;
             case 'image': 
                 echo get_the_post_thumbnail($post_id,'thumbnail');
@@ -151,13 +163,15 @@ class CreateMovie {
     }
 
     function add_submenu_options(){
+        require_once(PROJECT_MANAGEMENT_PATH . 'dashboard/supporthost-admin-table/supporthost-admin-table.php');
         add_submenu_page(
             'manager-ciname', // Menu cha
             'Theme Options', // Tiêu đề của menu
             'Theme Options', // Tên của menu
             'manage_options',// Vùng truy cập, giá trị này có ý nghĩa chỉ có supper admin và admin đc dùng
             'theme-options', // Slug của menu
-            [$this, 'access_menu_options'] // Hàm callback hiển thị nội dung của menu
+            // [$this, 'access_menu_options'] // Hàm callback hiển thị nội dung của menu
+            'supporthost_list_init'
         );
     }
 

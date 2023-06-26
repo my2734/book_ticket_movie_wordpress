@@ -1,14 +1,16 @@
 <?php
     //get all post type movie
    $args = array(
-    'post_type'   => 'movie'
+    'post_type'   => 'movie',
+    'numberposts'       => -1,
   );
   $movie = get_posts( $args );
 
   //get all post type ticket
 
   $arg = array(
-    'post_type' => 'ticket'
+    'post_type' => 'ticket',
+    'numberposts'       => -1,
   );
   $tickets = get_posts($arg);
 
@@ -37,11 +39,13 @@
   $count_profit = 0;
 
   //handler price profit
-  foreach($tickets as $ticket){
+  foreach($tickets as $key => $ticket){
+    // echo json_encode($ticket);
     $post_meta_ticket = get_post_meta($ticket->ID);
     $count_profit = (int)$post_meta_ticket['_price'][0] + $count_profit;
    
   }
+//   die();
 
   $arr_times_showtime_with_movie = [];
 
@@ -50,21 +54,33 @@
     $arr_movie_name[] = $movie_item->post_title;
   }
 
+  $arr_movie_id = [];
+  foreach($movie as $movie_item){
+    $arr_movie_id[] = $movie_item->ID;
+  }
+
+//   print_r($arr_movie_name);
+//   die();
+
+;
+
   $args = array(
     'post_type'   => 'showtimes'
   );
   $showtimes = get_posts( $args );
 
-  foreach($arr_movie_name as $movie_item){
+//   echo "========================================";
+  foreach($arr_movie_id as $movie_item){
     $count = 0;
     foreach($showtimes as $showtime){
-        if($movie_item == get_post_meta($showtime->ID, '_movie_name',true)) $count++;
-        echo get_post_meta($ticket->ID, '_movie_name',true);
-        // echo json_encode(get_post_meta($showtime->ID));
-        // die();
+        $movie_id_of_showtime = get_post_meta($showtime->ID, '_movie_id',true);
+        if($movie_item ==  $movie_id_of_showtime) $count++;
     }
     $arr_times_showtime_with_movie[] = $count;
   }
+
+//   print_r($arr_times_showtime_with_movie);
+//   die();
 //   echo json_encode($arr_times_showtime_with_movie);
 //   die();
 //   print_r($arr_movie_name);

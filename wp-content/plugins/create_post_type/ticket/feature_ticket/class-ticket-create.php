@@ -81,9 +81,11 @@ class CreateTicket
         $columns['time_show'] = __('Time Show');
         $columns['seat_position'] = __('Seat position');
         $columns['price'] = __('Price');
+        $columns['time_booking'] = __('Time Booking');
         $columns['name_buyer'] = __('Name buyer');
         $columns['email'] = __('Email');
         $columns['phone'] = __('Phone');
+        $columns['user_id'] = __('User ID');
         return $columns;
     }
 
@@ -93,9 +95,9 @@ class CreateTicket
         $showtime_id = get_post_meta($ticket_id, '_showtime_id', true);
         switch ($column) {
             case 'movie_name':
-                // $movie_name = get_post_meta($showtime_id,'_movie_name',true);
+                $movie_id = get_post_meta($showtime_id,'_movie_id',true);
                 // echo $movie_name;
-                echo get_post_meta($showtime_id, '_movie_name', true);
+                echo get_post($movie_id)->post_title;
                 break;
             case 'room_show':
                 $room_id = get_post_meta($showtime_id, '_room_id', true);
@@ -116,12 +118,32 @@ class CreateTicket
             case 'phone':
                 echo  get_post_meta($ticket_id, '_phone', true);
                 break;
+            case 'time_booking':
+                echo get_post_meta($ticket_id, '_time_booking', true);
+                break;
             case 'seat_position':
-                // $array_chair = get_post_meta($ticket_id, 'chair_id',false);
-                echo json_encode(get_post_meta($ticket_id,'_chair_id',false)[0]);
-                // foreach($array_chair[0] as $key => $chair){
-                //     echo $chair[$key];
-                // }
+                $showtime_id = get_post_meta($ticket_id,'_showtime_id',true);
+                $room_id = get_post_meta($showtime_id,'_room_id',true);
+                $quantity_chair_vip = get_post_meta($room_id,'_quantity_chair_vip',true);
+                // echo json_encode(get_post_meta($showtime_id));
+                $string_chair = "";
+                foreach(get_post_meta($ticket_id,'_chair_id',false)[0] as $key=> $chair_item){
+                    if($chair_item <= $quantity_chair_vip){ //A
+                        $string_chair .= 'A'.$chair_item;
+                    }else{ //B
+                        $string_chair .= 'B'.$chair_item;
+                    }
+                    if(($key+1) < count(get_post_meta($ticket_id,'_chair_id',false)[0])){
+                        $string_chair.=',';
+                    }
+                    $string_chair .= ' ';
+                }
+                // echo json_encode(get_post_meta($ticket_id,'_chair_id',true));
+                echo $string_chair;
+                // echo $quantity_chair_vip;
+                break;
+            case 'user_id':
+                echo get_post_meta($ticket_id,'_user_id',true);
                 break;
             default:
                 # code...

@@ -11,13 +11,16 @@ class CreateInfoTicketMetaBox extends CreateTicket
         add_action('save_post', [$this, 'save_custom_ticket_infomation_metabox'], 20);
         // add_action('save_post', [$this, 'save_custom_buyer_infomation_metabox'], 20);
         // die("hello ca nha yeu");
+        add_action('init',[$this,'set_date_default']);
     }
 
     /**************************************************
      * Start Customize meta box project information
      **************************************************/
 
-    
+    function set_date_default(){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+    }
 
     function custom_ticket_infomation_metabox()
     {
@@ -136,6 +139,12 @@ class CreateInfoTicketMetaBox extends CreateTicket
             // die($_POST['showtime']);
             update_post_meta($post_id, '_email', sanitize_text_field($_POST['email']));
         }
+
+        //Lưu giá trị của trường time_booking
+       
+        $time_now  = date('Y-m-d H:i:s');
+        update_post_meta($post_id,'_time_booking',$time_now);
+        // die($time_now);
     } 
 
     // function save_custom_buyer_infomation_metabox($post_id)

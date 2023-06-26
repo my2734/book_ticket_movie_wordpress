@@ -24,13 +24,16 @@
     $argTime = $taxonomyTerms['timeShow'];
     
     $arg = array(
-        'post_type' => 'movie'
+        'post_type' => 'movie',
+        'numberposts'       => -1,
+
     );
 
     $arg_movie = get_posts($arg);
 
     $arg_room = array(
-        'post_type' => 'room'
+        'post_type' => 'room',
+        'numberposts'       => -1,
     );
     
     $argRoom = get_posts($arg_room);
@@ -48,6 +51,7 @@
     if($status_edit){
         
         $post_id = isset($_GET['post'])?$_GET['post']:"";
+        
         $show_time_edit = get_post($post_id);
         $show_time_meta_box = get_post_meta($post_id);
 
@@ -68,6 +72,9 @@
         $quantity_chair_vip = get_post_meta($room_id_edit, '_quantity_chair_vip',true);
         $quantity_chair_normal = get_post_meta($room_id_edit,'_quantity_chair_normal',true);
         $arr_chair_vip = get_post_meta($post_id, '_array_chair',false)[0];
+
+        // echo json_encode(get_post_meta($post_id));
+        // die();
     }
 
     // Test test

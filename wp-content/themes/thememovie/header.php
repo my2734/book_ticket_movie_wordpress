@@ -41,6 +41,31 @@
             font-size: 16px !important;
             text-transform: none;
         }
+
+        .custom-chair{
+            /* height: 30px;
+            width: 30px; */
+            /* background: red; */
+            font-size: 16px;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 10px;
+            margin-right: 0px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .custom-chair-vip{
+            background-color: #00FF7F;	
+        }
+
+        .custom-chair-normal{
+            background-color: #800000;	
+        }
+
+        .custom-chair-disable{
+            background-color: #800000;	
+        }
     </style>
 
 </head>

@@ -61,12 +61,6 @@ class CreateMovieMetaBox extends CreateMovie
             }
         }
 
-
-        // Lưu giá trị của trường actor
-        // if (isset($_POST['actor'])) {
-        //     update_post_meta($post_id, '_actor', sanitize_textarea_field($_POST['actor']));
-        // }
-
         // Lưu giá trị của trường time
         if (isset($_POST['time'])) {
             update_post_meta($post_id, '_time', sanitize_text_field($_POST['time']));
@@ -77,8 +71,27 @@ class CreateMovieMetaBox extends CreateMovie
             update_post_meta($post_id, '_description', sanitize_text_field($_POST['description']));
         }
 
+        //Luu gia tri truong genre
         if (isset($_POST['genre'])) {
             update_post_meta($post_id, '_genre', sanitize_text_field($_POST['genre']));
+        }
+
+        //luu gia tri truong director
+        if(isset($_POST['director'])){
+            // die($_POST['director']);
+            update_post_meta($post_id, '_director',sanitize_text_field($_POST['director']));
+        }
+
+        //luu gia tri truong link_ytb
+        if(isset($_POST['link_ytb'])){
+            // die($_POST['link_ytb']);
+            update_post_meta($post_id,'_link_ytb',sanitize_text_field($_POST['link_ytb']));
+        }
+
+        //luu gia tri truong actors
+        if(isset($_POST['actors'])){
+            // die($_POST['actors']);
+            update_post_meta($post_id,'_actors',sanitize_text_field($_POST['actors']));
         }
     }
 /**************************************************

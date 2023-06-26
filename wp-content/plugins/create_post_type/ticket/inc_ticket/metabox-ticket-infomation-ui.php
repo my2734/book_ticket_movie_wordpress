@@ -58,11 +58,10 @@
         $seat_position = get_post_meta( $ticket_id, '_chair_id', false );
         
         $arr_chair_choose = get_post_meta($ticket_id, '_chair_id',false)[0];
-        // echo json_encode($arr_chair_choose);
-        // die();
+       
     }
 
-
+    
     ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -94,91 +93,111 @@
     /* bottom: 20px; */
 }
 
+input[type='checkbox'] { 
+    width: 30px !important;
+    height: 30px !important;
+}
+
 </style>
 
 <div class="Container">
     <!-- <h1>Hello ca nha yeu</h1> -->
     <div class="row">
-    <div class="col-12">
-            <?php
-                if($status_edit){ ?>
-                    <?php
-                foreach($arr_chair_choose as $arr_chair_choose_item){ ?>
-                    <input style="display: none;" type="checkbox" checked name="arr_chair_choose[]" value="<?php echo (int)$arr_chair_choose_item ?>">
-            <?php }
-            ?>
-              <?php  }
-            ?>
-        </div>
-       <div class="col-sm-12">
-            <div>
-                <label>Suất chiếu</label>
-                <select id="showtime_id" name="showtime_id" class="form-control">
-                    <?php
-                        foreach($argShowtimes as $showtime){ 
-                            $metaShowtimes = get_post_meta($showtime->ID); 
-                            $date_now =  new DateTime();
-                            $date_now = $date_now->format('Y-m-d');
-                            $room_id = $metaShowtimes['_room_id'][0];
-                            $room_name = get_post($room_id)->post_title;
-                            $movie_id = $metaShowtimes['_movie_id'][0];
-                            $movie_name = get_post($movie_id)->post_title;
-                            if($metaShowtimes['_date_show'][0] >= $date_now ){ ?>
-                                    <option <?php echo ($showtime_id == $showtime->ID)?"selected":""; ?> value="<?php echo $showtime->ID ?>"><?php echo' ('.$metaShowtimes['_date_show'][0].') '.' - Room ('.$room_name.') - Time ('.$metaShowtimes['_time_show'][0].')- Movie name: '. $movie_name  ?></option>
+        <div class="col-12">
+                <?php
+                    if($status_edit){ ?>
+                        <?php
+                    foreach($arr_chair_choose as $arr_chair_choose_item){ ?>
+                        <input style="display: none;" type="checkbox" checked name="arr_chair_choose[]" value="<?php echo (int)$arr_chair_choose_item ?>">
+                <?php }
+                ?>
+                <?php  }
+                ?>
+            </div>
+        <div class="col-sm-12">
+                <div>
+                    <label>Suất chiếu</label>
+                    <select id="showtime_id" name="showtime_id" class="form-control">
+                        <?php
+                            foreach($argShowtimes as $showtime){ 
+                                $metaShowtimes = get_post_meta($showtime->ID); 
+                                $date_now =  new DateTime();
+                                $date_now = $date_now->format('Y-m-d');
+                                $room_id = $metaShowtimes['_room_id'][0];
+                                $room_name = get_post($room_id)->post_title;
+                                $movie_id = $metaShowtimes['_movie_id'][0];
+                                $movie_name = get_post($movie_id)->post_title;
+                                if($metaShowtimes['_date_show'][0] >= $date_now ){ ?>
+                                        <option <?php echo ($showtime_id == $showtime->ID)?"selected":""; ?> value="<?php echo $showtime->ID ?>"><?php echo' ('.$metaShowtimes['_date_show'][0].') '.' - Room ('.$room_name.') - Time ('.$metaShowtimes['_time_show'][0].')- Movie name: '. $movie_name  ?></option>
 
-                         <?php   }
-                            ?>
-                    <?php  }                        
-                    ?>
-                </select>
-            </div>
-       </div>
-       <div class="col-sm-6">
-            
-            <div>
-                <label>Giá vé</label>
-                <input value="<?php echo $status_edit?$price_edit:""; ?>" type="text" name="price" id="price" class="form-control" >
-                <span class="text-danger" id="errorPrice"></span>
-            </div>
-            
+                            <?php   }
+                                ?>
+                        <?php  }                        
+                        ?>
+                    </select>
+                </div>
         </div>
         <div class="col-sm-6">
-            
-            <div>
-                <label>Giá vé giảm</label>
-                <input value="<?php echo $status_edit?$price_promotion_edit:""; ?>" type="text" name="price_promotion" class="form-control" >
+                
+                <div>
+                    <label>Giá vé</label>
+                    <input value="<?php echo $status_edit?$price_edit:""; ?>" type="text" name="price" id="price" class="form-control" >
+                    <span class="text-danger" id="errorPrice"></span>
+                </div>
+                
+            </div>
+            <div class="col-sm-6">
+                
+                <div>
+                    <label>Giá vé giảm</label>
+                    <input value="<?php echo $status_edit?$price_promotion_edit:""; ?>" type="text" name="price_promotion" class="form-control" >
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <span class="mb-3">Ghế<span>
-            <br>
-            <br>
-            <div id="chair" style="width: 100%">
-                
-           </div>
-           <div class="col-12">
-            <label>Ghi chú</label>
-            <br>
-            <input class="chair_vip seat_position1212 mb-2" type="checkbox"><span style="top:20px;"> : Ghế vip</span>
-            <br>
-            <input class="chair_normal seat_position mb-2" type="checkbox"> : Ghế thường
-            <br>
-            <input disabled="" class="chair_vip seat_position mb-2 disabled" type="checkbox"> : Ghế đã được đặt
-            <br>
-            <input disabled="" class="choose seat_position mb-2 disabled" type="checkbox"> : Ghế đã chọn
-            </div>
-           
-            <input id="status_edit" placeholder="status_edit" value="<?php echo $status_edit ?>"> 
-            <input id="ticket_id" placeholder="ticket_id" value="<?php echo $ticket_id ?>"> 
-        
+        <div class="row">
+            <div class="col-12">
+                <span class="mb-3">Ghế<span>
+                <br>
+                <br>
+                <div id="chair" style="width: 100%">
+                    
+                </div>
+            
+                <?php 
+                    if($status_edit){ ?>
+                        <input id="status_edit" placeholder="status_edit" value="<?php echo $status_edit ?>"> 
+                        <input id="ticket_id" placeholder="ticket_id" value="<?php echo $ticket_id ?>"> 
+
+                <?php } ?>                    
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Ghi chú</label>
+                        <br>
+                        <input class="chair_vip seat_position1212 mb-2" type="checkbox"><span style="top:20px;"> : Ghế vip</span>
+                        <br>
+                        <input class="chair_normal seat_position mb-2" type="checkbox"> : Ghế thường
+                        <br>
+                        <input disabled="" class="chair_vip seat_position mb-2 disabled" type="checkbox"> : Ghế đã được đặt
+                        <br>
+                        <input disabled="" class="choose seat_position mb-2 disabled" type="checkbox"> : Ghế đã chọn
+                    </div>
+                    <div class="col-sm-6"> 
+                        <label>Giá vé</label>
+                        <br>
+                        <p>Ghế vip: 90.000 vnđ</p>
+                        <p>Ghế thường: 70.000 vnđ</p>
+                    </div>
+                </div>
+        </div>
+       
     </div>
 </div>
 
 
 <script>
     $(document).ready(function(){
+
+      
     
         var arr_chair_choose = []
         $("input:checkbox[name='arr_chair_choose[]']:checked").each(function(){    
@@ -206,7 +225,6 @@
                 //Làm gì đó khi dữ liệu đã được xử lý
                 // console.log(response.data)  
                 if(response.success) {
-                    // console.log(Object.values(response.data))
                     const resultShowtimes = response.data
                     const quantity_chair_normal = resultShowtimes.quantity_chair_normal;
                     const quantity_chair_vip = resultShowtimes.quantity_chair_vip;
@@ -258,10 +276,11 @@
             success: function(response) {
                 //Làm gì đó khi dữ liệu đã được xử lý
                 if(response.success) {
-                    const resultShowtimes = response.data
-                    const quantity_chair_normal = resultShowtimes.quantity_chair_normal;
-                    const quantity_chair_vip = resultShowtimes.quantity_chair_vip;
-                    const array_chair_vip = Object.values(resultShowtimes._array_chair[0])
+                    const resulftShowtimes = response.data
+                    const quantity_chair_normal = resulftShowtimes.quantity_chair_normal;
+                    const quantity_chair_vip = resulftShowtimes.quantity_chair_vip;
+                    const array_chair_vip = Object.values(resulftShowtimes._array_chair[0])
+                   
 
                     let html = "";
                     let class_html = "";
@@ -294,8 +313,10 @@
        
 
        
+       
 
         return false;
+
 
 
        

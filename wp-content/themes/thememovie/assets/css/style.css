@@ -15,7 +15,10 @@
 /* custom css */
 
 
-
+.custom-span,.custom-p{
+  display: inline !important;
+  font-size: 10px !important;
+}
 
 
 
