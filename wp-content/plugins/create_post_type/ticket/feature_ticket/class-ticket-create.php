@@ -81,6 +81,7 @@ class CreateTicket
         $columns['time_show'] = __('Time Show');
         $columns['seat_position'] = __('Seat position');
         $columns['price'] = __('Price');
+        $columns['price_promotion'] = __('Price Promotion');
         $columns['time_booking'] = __('Time Booking');
         $columns['name_buyer'] = __('Name buyer');
         $columns['email'] = __('Email');
@@ -108,6 +109,9 @@ class CreateTicket
                 break;
             case 'price':
                 echo number_format(get_post_meta($ticket_id, '_price', true)) . " vnđ";
+                break;
+            case 'price_promotion':
+                echo number_format(get_post_meta($ticket_id, '_price_promotion', true)) . " vnđ";
                 break;
             case 'name_buyer':
                 echo get_post_meta($ticket_id, '_name_buyer', true);

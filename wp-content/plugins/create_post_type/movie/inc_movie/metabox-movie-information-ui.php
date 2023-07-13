@@ -34,6 +34,9 @@
         $time_edit = $movie_meta['_time'][0];
         $genre_edit = $movie_meta['_genre'][0];
         $description_edit = $movie_meta['_description'][0];
+        $director = $movie_meta['_director'][0];
+        $link_ytb = $movie_meta['_link_ytb'][0];
+        $actors = $movie_meta['_actors'][0];
     }
 ?>
 
@@ -44,22 +47,17 @@
 
 
 <div class="Container">
-    <!-- <div>
-        <label>Một số diễn viễn</label>
-        <input type="text" name="actor" class="form-control" aria-describedby="textHelp" placeholder="Một số diễn viên">
-    </div> -->
+
     <div class="row">
         <div class="col-sm-6">
-            <label>Thời lượng</label>
+            <label>Time</label>
             <input id="time" value="<?php echo $status_edit?$time_edit:""; ?>" type="text" name="time" class="form-control" aria-describedby="emailHelp" placeholder="Thời lượng">
             <span id="validateTime" class="text-danger"><span>
         </div>
         <div class="col-sm-6">
-            <label>Thể loại</label>
+            <label>Genre</label>
             <select name="genre" class="form-control">
             <?php 
-            // print_r($argGenre);
-            // die();
                 foreach($argGenre as $genreItem){ ?>
                         <option <?php echo ($status_edit && $genreItem->name == $genre_edit)?"selected":""; ?> value="<?php echo $genreItem->name; ?>"><?php echo $genreItem->name; ?></option>  
             <?php    }
@@ -69,19 +67,19 @@
   </div>
   <div class="row mt-2">
     <div class="col-sm-6">
-        <label>Đạo diễn</label>
-        <input type="text" class="form-control" name="director">
+        <label>Director</label>
+        <input type="text" class="form-control" value="<?php echo isset($status_edit)?$director:"" ?>" name="director">
     </div>
     <div class="col-sm-6">
         <label>Link youtube</label>
-        <input type="text" class="form-control" name="link_ytb">
+        <input type="text" class="form-control" value="<?php echo isset($status_edit)?$link_ytb:"" ?>" name="link_ytb">
     </div>
     <div class="col-sm-12 mt-2">
-        <label>Diễn viên</label>
-        <input type="text" class="form-control" name="actors">           
+        <label>Actor</label>
+        <input type="text" class="form-control" value="<?php echo isset($status_edit)?$actors:"" ?>" name="actors">           
     </div>
     <div class="col-12 mt-2">
-        <label>Mô tả</label>
+        <label>Description</label>
         <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"><?php echo $status_edit?$description_edit:""; ?></textarea>
     </div>
   </div>
@@ -97,10 +95,10 @@
 
             //validate time
             if(time == ""){
-                errorTime = "Vui lòng nhập thời gian";
+                errorTime = "Please enter time";
                 statusTime = false;
             }else if(isNaN(time)){
-                errorTime = "Nhập sai định dạng";
+                errorTime = "Enter the wrong format";
                 statusTime = false;
             }
             $('#validateTime').html(errorTime);

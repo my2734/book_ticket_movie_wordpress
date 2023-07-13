@@ -3,7 +3,7 @@
     $quantity_chair_vip = get_post_meta($post->ID,'_quantity_chair_vip',true);
 
     $status_edit = false;
-    if($_GET['action'] == 'edit'){
+    if(isset($_GET['action']) && $_GET['action'] == 'edit'){
         $status_edit = true;
     }
 ?>
@@ -11,12 +11,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="container">
     <div class="row">
-        <label>Số lượng ghế thường</label>
+        <label>
+Number of normally seats</label>
         <input id="quantity_chair_normal" name="quantity_chair_normal" type="text" class="form-control" value="<?php echo ($status_edit)?$quantity_chair_normal:""; ?>" >
         <span id="quantity_chair_normal_error" class="text-danger"></span>
     </div>
     <div class="row mt-3">
-        <label>Số lượng ghế vip</label>
+        <label>Number of VIP seats</label>
         <input id="quantity_chair_vip" name="quantity_chair_vip" type="text" class="form-control" value="<?php echo ($status_edit)?$quantity_chair_vip:""; ?>">
         <span id="quantity_chair_vip_error" class="text-danger"></span>
     </div>
@@ -35,10 +36,10 @@
             let errorNormal = ""
             let statusNormal = true
             if(quantity_chair_normal == ""){
-                errorNormal = "Vui lòng nhập số lượng ghế thường";
+                errorNormal = "Number of VIP seats";
                 statusNormal = false;
             }else if(isNaN(quantity_chair_normal)){
-                errorNormal = "Nhập sai định dạng";
+                errorNormal = "Enter the wrong format";
                 statusNormal = false;
             }
             $('#quantity_chair_normal_error').html(errorNormal);
@@ -48,10 +49,10 @@
             let errorVip = ""
             let statusVip = true
             if(quantity_chair_vip == ""){
-                errorVip = "Vui lòng nhập số lượng ghế vip";
+                errorVip = "Please enter the number of vip seats";
                 statusVip = false;
             }else if(isNaN(quantity_chair_vip)){
-                errorVip = "Nhập sai định dạng";
+                errorVip = "Enter the wrong format";
                 statusVip = false;
             }
             $('#quantity_chair_vip_error').html(errorVip);

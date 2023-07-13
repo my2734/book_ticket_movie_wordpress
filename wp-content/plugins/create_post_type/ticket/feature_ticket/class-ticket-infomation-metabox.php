@@ -118,7 +118,9 @@ class CreateInfoTicketMetaBox extends CreateTicket
 
         // Lưu giá trị của trường price_promotion
         if (isset($_POST['price_promotion'])) {
-            // die($_POST['price_promotion']);
+            if($_POST['price_promotion']=="" || $_POST['price_promotion']==0){
+                $_POST['price_promotion'] = $_POST['price'];
+            }
             update_post_meta($post_id, '_price_promotion', sanitize_text_field($_POST['price_promotion']));
         }
 

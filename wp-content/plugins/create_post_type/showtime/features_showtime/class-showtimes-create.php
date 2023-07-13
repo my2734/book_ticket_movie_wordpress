@@ -56,20 +56,14 @@
 
 
         function thongbao1212_init() {
-            //do bên js để dạng json nên giá trị trả về dùng phải encode
-            $movie_id = (isset($_POST['movie_id']))?esc_attr($_POST['movie_id']):"";
+            // $movie_id = (isset($_POST['movie_id']))?esc_attr($_POST['movie_id']):"";
             $room_id = (isset($_POST['room_id']))?esc_attr($_POST['room_id']):"";
             $date_show = (isset($_POST['date_show']))?esc_attr($_POST['date_show']):"";
-
-            // wp_send_json_success($movie_name);
-
-
+            
             $taxonomies = get_taxonomies(['object_type' => ['showtimes']]);
             $taxonomyTerms = [];
-            // loop over your taxonomies
             foreach ($taxonomies as $taxonomy)
             {
-                // retrieve all available terms, including those not yet used
                 $terms    = get_terms(['taxonomy' => $taxonomy, 'hide_empty' => false]);
                 // make sure $terms is an array, as it can be an int (count) or a WP_Error
                 $hasTerms = is_array($terms) && $terms;
@@ -79,17 +73,42 @@
                 }
             }
             $argTime = $taxonomyTerms['timeShow'];
-            $argResult = [];
-            $arg = array(
-                'post_type' => 'showtimes'
-            );
-            $showTime_list = get_posts($arg);
+
+            
+            // $arg = array(
+            //     'post_type' => 'showtimes'
+            // );
+            // $list_showtimes = get_posts($arg);
+            $datetime =  new DateTime();
+            $datetime = $datetime->format('Y-m-d');
+            $arg_showtimes = array(
+                'post_type' => 'showtimes',
+                'meta_query'=> array(
+                    array(
+                        'key' => '_date_show',
+                        'compare' => '>=',
+                        'value' => $datetime,
+                    )
+            ));
+            $list_showtimes = get_posts($arg_showtimes);
+            $time_now =  date('H');
+            foreach($list_showtimes as $key => $showtime){
+                $time_show = explode('h',get_post_meta($showtime->ID,'_time_show',true))[0];
+                if($time_show<=$time_now && get_post_meta($showtime->ID,'_date_show',true)==$datetime){
+                    unset($list_showtimes[$key]);
+                }
+            }
+
+
             $timeResult = [];
             foreach($argTime as $key => $time){
                 //each time for showtimes
-                foreach($showTime_list as $showtime){
+                foreach($list_showtimes as $showtime){
+                    $date_show_showtime = get_post_meta($showtime->ID,'_date_show',true);
+                    $room_id_showtime = get_post_meta($showtime->ID,'_room_id',true);
+                    $time_show_showtime = get_post_meta($showtime->ID,'_time_show',true);
                     $metaShowTime = get_post_meta($showtime->ID); //meta ffield of each showtime
-                    if($metaShowTime['_movie_id'][0]  ==  $movie_id && $metaShowTime['_room_id'][0]  ==  $room_id && $metaShowTime['_date_show'][0] == $date_show && $metaShowTime['_time_show'][0] == $time->name){
+                    if($room_id_showtime  ==  $room_id && $date_show_showtime == $date_show && $time_show_showtime == $time->name){
                         $timeResult[] = $time->name;
                     }
                 } 

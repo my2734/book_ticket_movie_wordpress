@@ -20,7 +20,8 @@ require_once(PROJECT_MANAGEMENT_PATH . 'movie/features_movie/class-movie-create.
 require_once(PROJECT_MANAGEMENT_PATH . 'room/features_room/class-room-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'showtime/features_showtime/class-showtimes-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'ticket/feature_ticket/class-ticket-create.php');
-require_once(PROJECT_MANAGEMENT_PATH . 'user/features_user/class-user-create.php');
+// require_once(PROJECT_MANAGEMENT_PATH . 'user/features_user/class-user-create.php');
+require_once(PROJECT_MANAGEMENT_PATH . 'event/features_event/class-event-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'shortcode/shortcode_init.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'dashboard/supporthost-admin-table/supporthost-admin-table.php');
 // die("hello ca nha yeu");
@@ -32,6 +33,6 @@ new CreateRoom();
 new CreateShowtimes();
 new CreateTicket();
 new CreartShortcode();
-new CreateUser();
-
+// new CreateUser();
+new CreateEvent();
 // new Supporthost_List_Table();

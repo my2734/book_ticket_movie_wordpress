@@ -23,12 +23,12 @@
     <div class="row">
         <div class="col">
             <div>
-                <label>Người đặt</label>
+                <label>Username</label>
                 <input value="<?php echo $status_edit?$name_buyer:""; ?>" type="text" name="name_buyer" id="name_buyer" class="form-control" >
                 <span id="error_name_buyer" class="text-danger"></span>
             </div>
             <div>
-                <label>Số điện thoại</label>
+                <label>Phone</label>
                 <input value="<?php echo $status_edit?$phone:""; ?>" type="text" name="phone" id="phone" class="form-control" >
                 <span id="error_phone" class="text-danger"></span>
             </div> 
@@ -56,10 +56,10 @@
             let errorPrice = ""
             let statusPrice = true
             if(price == ""){
-                errorPrice = "Vui lòng nhập giá vé"
+                errorPrice = "Please enter the fare"
                 statusPrice = false;
             }else if(isNaN(price)){
-                errorPrice = "Nhập sai định dạng"
+                errorPrice = "Enter the wrong format"
                 statusPrice = false
             }
             $('#errorPrice').html(errorPrice)
@@ -68,7 +68,7 @@
             let error_name_buyer = ""
             let status_name_buyer = true
             if(name_buyer == ""){
-                error_name_buyer = "Vui lòng nhập tên người đặt vé"
+                error_name_buyer = "Please enter the name of the person booking the ticket"
                 status_name_buyer = false
             }
             $('#error_name_buyer').html(error_name_buyer)
@@ -77,10 +77,10 @@
             let error_phone = ""
             let status_phone= true
             if(phone == ""){
-                error_phone = "Vui lòng nhập số điện thoại"
+                error_phone = "Please enter the phone number"
                 status_phone = false
             }else if(isNaN(phone)){
-                error_phone = "Nhập sai định dạng"
+                error_phone = "Enter the wrong format"
                 status_phone = false
             }
             $('#error_phone').html(error_phone)
@@ -90,10 +90,10 @@
             let status_email = true
             if(email == ""){
                 // alert(email)
-                error_email = "Vui lòng nhập địa chỉ email"
+                error_email = "Please enter your email address"
                 status_email = false
             }else if(!email.includes('@')){
-                error_email = "Nhập sai định dạng" 
+                error_email = "Enter the wrong format" 
                 status_email = false
             }
             $('#error_email').html(error_email)

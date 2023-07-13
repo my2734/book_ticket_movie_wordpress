@@ -16,15 +16,13 @@ class CreateMovie {
         add_action('wp_ajax_nopriv_chart_first12',  [$this, 'chart_first_init']);
 
         add_filter( 'block_categories_all' ,  [$this, 'func_block_categories_all']);
-
-
-        //register shortcode
-        // add_shortcode('subscribe', 'subscribe_link_shortcode');
+        // add_filter( 'admin_footer_text', 'wpse_edit_text', 11 );
 
         require_once(PROJECT_MANAGEMENT_PATH . 'movie/features_movie/class-movie-metabox.php');
 
        
     }
+   
 
     // function subscribe_link_shortcode() {
     //     return "<h1>Hello ca nha yeu</h1>";
@@ -166,10 +164,10 @@ class CreateMovie {
         require_once(PROJECT_MANAGEMENT_PATH . 'dashboard/supporthost-admin-table/supporthost-admin-table.php');
         add_submenu_page(
             'manager-ciname', // Menu cha
-            'Theme Options', // Tiêu đề của menu
-            'Theme Options', // Tên của menu
+            'Showtime On Sale', // Tiêu đề của menu
+            'Showtime On Sale', // Tên của menu
             'manage_options',// Vùng truy cập, giá trị này có ý nghĩa chỉ có supper admin và admin đc dùng
-            'theme-options', // Slug của menu
+            'movie-show', // Slug của menu
             // [$this, 'access_menu_options'] // Hàm callback hiển thị nội dung của menu
             'supporthost_list_init'
         );
@@ -216,9 +214,15 @@ class CreateMovie {
         if ($post->post_type === 'movie') {
             $title_placeholder = 'Nhập tên movie';
         }else if($post->post_type === 'ticket'){
-            $title_placeholder = "Nhập tên movie";
+            $title_placeholder = "Nhập tên vé";
         }else if($post->post_type == "showtimes"){
             $title_placeholder = "Nhập tên suất chiếu";
+        }else if($post->post_type == 'room'){
+            $title_placeholder = "Nhập tên phòng chiếu";
+        }else if($post->post_type == "user"){
+            $title_placeholder = "Nhập tên khách hàng";
+        }else if($post->post_type == 'event'){
+            $title_placeholder = "Nhập tên sự kiện";
         }
         return $title_placeholder;
     }
