@@ -16,15 +16,15 @@ if (!defined('PROJECT_MANAGEMENT_URL')) {
 }
 
 
+
 require_once(PROJECT_MANAGEMENT_PATH . 'movie/features_movie/class-movie-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'room/features_room/class-room-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'showtime/features_showtime/class-showtimes-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'ticket/feature_ticket/class-ticket-create.php');
-// require_once(PROJECT_MANAGEMENT_PATH . 'user/features_user/class-user-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'event/features_event/class-event-create.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'shortcode/shortcode_init.php');
 require_once(PROJECT_MANAGEMENT_PATH . 'dashboard/supporthost-admin-table/supporthost-admin-table.php');
-// die("hello ca nha yeu");
+require_once(PROJECT_MANAGEMENT_PATH . 'block/features_block/init_block.php');
 
 
 // CreateProJectManagement
@@ -33,6 +33,5 @@ new CreateRoom();
 new CreateShowtimes();
 new CreateTicket();
 new CreartShortcode();
-// new CreateUser();
 new CreateEvent();
-// new Supporthost_List_Table();
+new InitBlock();

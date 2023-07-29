@@ -55,6 +55,9 @@ class CreartShortcode
         add_shortcode('display_list_movie_pagination', [$this, 'display_list_movie_pagination_shortcode']);
         add_shortcode('movie_now_showing', [$this, 'movie_now_showing_shortcode']);
 
+        //demo page
+        add_shortcode('display_list_movie_pagination_demo_page', [$this, 'display_list_movie_pagination_demo_page_shortcode']);
+
         //register
         add_shortcode('register_form', [$this, 'register_form_shortcode']);
         add_shortcode('login_form', [$this, 'login_form_shortcode']);
@@ -1564,6 +1567,47 @@ class CreartShortcode
                     $html .= '<a  href="http://book_tickets_movie2.local/genre/?query-page=' . $i . '" style="margin-right: 10px; background-color:  #707B7C" class="btn custom-btn-showtime">' . ($i + 1) . '</a>';
                 } else {
                     $html .= '<a href="http://book_tickets_movie2.local/genre/?query-page=' . $i . '" style="margin-right: 10px" class="btn custom-btn-showtime">' . ($i + 1) . '</a>';
+                }
+            }
+            $html .= '</div>';
+
+            return $html;
+        }
+        return "";
+    }
+
+    function display_list_movie_pagination_demo_page_shortcode(){
+        $page = isset($_GET['query-page']) ? $_GET['query-page'] : 0;
+        $genre = isset($_GET['query-genre']) ? $_GET['query-genre'] : "";
+        if ($genre != "") {
+            $arrMovie = array(
+                'post_type'     => 'movie',
+                'numberposts'   => -1,
+                'meta_query' => array(
+                    array(
+                        'key' => '_genre',
+                        'compare' => '=',
+                        'value' => $genre,
+                    ),
+                )
+            );
+        } else {
+            $arrMovie = array(
+                'post_type'     => 'movie',
+                'numberposts'   => -1,
+            );
+        }
+        $listMovie = get_posts($arrMovie);
+        if (count($listMovie) > 6) {
+            $total_quantity_movie = count($listMovie);
+            $quantity_movie_display = 6;
+            $number_button = floor($total_quantity_movie / $quantity_movie_display) + 1;
+            $html = '<div class="d-flex justify-content-center">';
+            for ($i = 0; $i < $number_button; $i++) {
+                if ($i == $page) {
+                    $html .= '<a  href="http://book_tickets_movie2.local/demo-page/?query-page=' . $i . '" style="margin-right: 10px; background-color:  #707B7C" class="btn custom-btn-showtime">' . ($i + 1) . '</a>';
+                } else {
+                    $html .= '<a href="http://book_tickets_movie2.local/demo-page/?query-page=' . $i . '" style="margin-right: 10px" class="btn custom-btn-showtime">' . ($i + 1) . '</a>';
                 }
             }
             $html .= '</div>';
